@@ -1,25 +1,25 @@
 class Libro:
-    def _init_(self, titulo, autor, categoria, isbn):
+    def __init__(self, titulo, autor, categoria, isbn):
         self.info = (titulo, autor)  # Tupla inmutable para título y autor
         self.categoria = categoria
         self.isbn = isbn
 
-    def _str_(self):
+    def __str__(self):
         return f"'{self.info[0]}' por {self.info[1]} (Categoría: {self.categoria}, ISBN: {self.isbn})"
 
 
 class Usuario:
-    def _init_(self, nombre, id_usuario):
+    def __init__(self, nombre, id_usuario):
         self.nombre = nombre
         self.id_usuario = id_usuario
         self.libros_prestados = []  # Lista de libros actualmente prestados
 
-    def _str_(self):
+    def __str__(self):
         return f"Usuario: {self.nombre}, ID: {self.id_usuario}, Libros prestados: {len(self.libros_prestados)}"
 
 
 class Biblioteca:
-    def _init_(self):
+    def __init__(self):
         self.libros = {}  # Diccionario de libros {ISBN: Libro}
         self.usuarios = {}  # Diccionario de usuarios {ID: Usuario}
         self.usuarios_registrados = set()  # Conjunto de IDs de usuarios
@@ -79,7 +79,7 @@ class Biblioteca:
 
         if libro_prestado:
             usuario.libros_prestados.remove(libro_prestado)
-            self.libros[isbn] = libro_prestado
+            self.libros[libro_prestado.isbn] = libro_prestado
             print(f"Libro '{libro_prestado.info[0]}' devuelto por {usuario.nombre}.")
         else:
             print(f"El usuario no tiene el libro con ISBN {isbn} prestado.")
@@ -88,8 +88,8 @@ class Biblioteca:
         resultados = []
         for libro in self.libros.values():
             if (titulo and titulo.lower() in libro.info[0].lower()) or \
-                    (autor and autor.lower() in libro.info[1].lower()) or \
-                    (categoria and categoria.lower() in libro.categoria.lower()):
+               (autor and autor.lower() in libro.info[1].lower()) or \
+               (categoria and categoria.lower() in libro.categoria.lower()):
                 resultados.append(libro)
 
         if resultados:
@@ -116,15 +116,15 @@ class Biblioteca:
 biblioteca = Biblioteca()
 
 # Crear libros
-libro1 = Libro("Los Sangurimas", " Jose de la Cuadra", "Clásico", "123456789")
-libro2 = Libro("La Hoguera" ," Alfredo Pareja ", "Clásico", "0995958878")
+libro1 = Libro("Los Sangurimas", "Jose de la Cuadra", "Clásico", "123456789")
+libro2 = Libro("La Hoguera", "Alfredo Pareja", "Clásico", "0995958878")
 
 # Agregar libros a la biblioteca
 biblioteca.agregar_libro(libro1)
 biblioteca.agregar_libro(libro2)
 
 # Crear usuarios
-usuario1 = Usuario("Jose de la Cuadra")
+usuario1 = Usuario("Jose de la Cuadra", "U001")
 usuario2 = Usuario("Alfredo Pareja", "U002")
 
 # Registrar usuarios
