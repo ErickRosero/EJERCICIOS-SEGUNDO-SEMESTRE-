@@ -3,7 +3,7 @@ from tkinter import messagebox
 
 
 class AplicacionGUI:
-    def _init_(self, root):
+    def __init__(self, root):
         self.root = root
         self.root.title("Aplicación GUI Básica")
         self.root.geometry("300x300")  # Ajusta el tamaño de la ventana a 300x300
@@ -48,7 +48,7 @@ class AplicacionGUI:
         self.lista.delete(0, tk.END)
 
 
-if "_name_" = "_main_":
+if __name__ == "__main__":
     root = tk.Tk()
     app = AplicacionGUI(root)
     root.mainloop()
